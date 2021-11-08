@@ -9,6 +9,27 @@ import (
 
 var log = mylog.NewLogger("discord", mylog.LevelDebug)
 
+//=================== payment account ===================
+
+// RegisterAccountNotice 注册账户
+func RegisterAccountNotice(webHookUrl, content string) {
+	log.Info("RegisterAccountNotice:", content)
+
+	err := sendNotifyDiscordContent(webHookUrl, content)
+	if err != nil {
+		log.Error("RegisterAccountNotice err: ", err.Error())
+	}
+}
+
+//=================== transaction account ===================
+
+type BuyAccountNoticeParams struct {
+	Account    string
+	PriceCkb   string
+	PriceUsd   string
+	WebhookUrl string
+}
+
 func numFormat(str string) string {
 	strArr := strings.Split(str, ".")
 	length := len(strArr[0])
@@ -24,23 +45,6 @@ func numFormat(str string) string {
 		resStr += "." + strArr[1]
 	}
 	return resStr
-}
-
-// RegisterAccountNotice 注册账户
-func RegisterAccountNotice(webHookUrl, content string) {
-	log.Info("RegisterAccountNotice:", content)
-
-	err := sendNotifyDiscordContent(webHookUrl, content)
-	if err != nil {
-		log.Error("RegisterAccountNotice err: ", err.Error())
-	}
-}
-
-type BuyAccountNoticeParams struct {
-	Account    string
-	PriceCkb   string
-	PriceUsd   string
-	WebhookUrl string
 }
 
 // BuyAccountNotice 购买账户
@@ -64,7 +68,7 @@ type StartAccountNoticeParams struct {
 	WebhookUrl  string
 }
 
-// StartAccountNotice 上架账户，修改订单
+// StartAccountNotice 上架账户，修改上架账户
 func StartAccountNotice(p *StartAccountNoticeParams) {
 	log.Info("StartAccountNotice:", p.Account, p.PriceCkb, p.PriceUsd)
 
