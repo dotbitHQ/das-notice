@@ -56,7 +56,10 @@ func DoOrderNotifyLark(p ParamsDoOrderNotify) {
 > 时间：%s
 > 交易哈希：%s`
 	msg = fmt.Sprintf(msg, p.Account, p.OrderId, p.payName, p.PayAmount.String(), time.Now().Format("2006-01-02 15:04:05"), p.Hash)
-	sendLarkTextNotify(p.WebhookUrl, p.actionName, msg)
+	err := sendLarkTextNotify(p.WebhookUrl, p.actionName, msg)
+	if err != nil {
+		log.Error("DoOrderNotifyLark err: ", err.Error())
+	}
 }
 
 type ParamsDoRegisterNotify struct {
@@ -88,5 +91,8 @@ func DoRegisterNotifyLark(p ParamsDoRegisterNotify) {
 > 时间：%s
 > 交易哈希：%s`
 	msg = fmt.Sprintf(msg, p.Account, p.OrderId, time.Now().Format("2006-01-02 15:04:05"), p.Hash)
-	sendLarkTextNotify(p.WebhookUrl, p.ActionName, msg)
+	err := sendLarkTextNotify(p.WebhookUrl, p.ActionName, msg)
+	if err != nil {
+		log.Error("DoRegisterNotifyLark err: ", err.Error())
+	}
 }

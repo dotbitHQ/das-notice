@@ -27,7 +27,10 @@ func DoRegisterInfoNotifyLark(p ParamsDoRegisterInfoNotify) {
 - 确认提案中数量：%d
 - 时间：%s`
 	msg = fmt.Sprintf(msg, p.AccountNum, p.OwnerNum, p.ApplyNum, p.PreNum, p.ProNum, p.ConfirmProNum, time.Now().Format("2006-01-02 15:04:05"))
-	sendLarkTextNotify(p.WebhookUrl, "注册信息统计", msg)
+	err := sendLarkTextNotify(p.WebhookUrl, "注册信息统计", msg)
+	if err != nil {
+		log.Error("DoRegisterInfoNotifyLark err: ", err.Error())
+	}
 }
 
 type ParamsDoNormalCellNotify struct {
@@ -41,7 +44,10 @@ func DoNormalCellNotifyLark(p ParamsDoNormalCellNotify) {
 - Capacity: %s
 - 时间：%s`
 	msg = fmt.Sprintf(msg, p.Count, p.Capacity, time.Now().Format("2006-01-02 15:04:05"))
-	sendLarkTextNotify(p.WebhookUrl, "剩余零散的NormalCell", msg)
+	err := sendLarkTextNotify(p.WebhookUrl, "剩余零散的NormalCell", msg)
+	if err != nil {
+		log.Error("DoNormalCellNotifyLark err: ", err.Error())
+	}
 }
 
 type ParamsDoBlockParserNotify struct {
@@ -57,5 +63,8 @@ func DoBlockParserNotifyLark(p ParamsDoBlockParserNotify) {
 > 时间：%s
 > 交易哈希：%s`
 	msg = fmt.Sprintf(msg, p.BlockNumber, p.Action, time.Now().Format("2006-01-02 15:04:05"), p.Hash)
-	sendLarkTextNotify(p.WebhookUrl, "区块监听", msg)
+	err := sendLarkTextNotify(p.WebhookUrl, "区块监听", msg)
+	if err != nil {
+		log.Error("DoBlockParserNotifyLark err: ", err.Error())
+	}
 }

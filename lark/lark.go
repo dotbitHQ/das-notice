@@ -1,7 +1,9 @@
 package lark
 
 import (
+	"fmt"
 	"github.com/parnurzeal/gorequest"
+	"net/http"
 	"time"
 )
 
@@ -23,9 +25,9 @@ type MsgData struct {
 	} `json:"content"`
 }
 
-func sendLarkTextNotify(url, title, text string) {
+func sendLarkTextNotify(url, title, text string) error {
 	if url == "" || text == "" {
-		return
+		return nil
 	}
 	var data MsgData
 	data.Email = ""
@@ -40,10 +42,11 @@ func sendLarkTextNotify(url, title, text string) {
 			},
 		},
 	}
-	_, body, errs := gorequest.New().Post(url).Timeout(time.Second * 10).SendStruct(&data).End()
+	resp, _, errs := gorequest.New().Post(url).Timeout(time.Second * 10).SendStruct(&data).End()
 	if len(errs) > 0 {
-		log.Error("sendLarkTextNotify req err:", errs)
-	} else {
-		log.Info("sendLarkTextNotify req:", body)
+		return fmt.Errorf("errs:%v", errs)
+	} else if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("http code:%d", resp.StatusCode)
 	}
+	return nil
 }
