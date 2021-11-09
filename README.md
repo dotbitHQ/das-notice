@@ -3,3 +3,4 @@
 * payment - das_pay
 * register - das_rpc
 * transaction - das_transaction
+* parser - das_parser

@@ -2,6 +2,7 @@ package lark
 
 import (
 	"fmt"
+	"time"
 )
 
 //=================== payment error ===================
@@ -91,5 +92,26 @@ func DoOrderTxRejectedNotifyLark(p ParamsDoOrderTxRejectedNotify) {
 	err := sendLarkTextNotify(p.WebhookUrl, "Rejected 交易监听", msg)
 	if err != nil {
 		log.Error("DoOrderTxRejectedNotifyLark err: ", err.Error())
+	}
+}
+
+//=================== parser error ===================
+
+type ParamsDoBlockParserNotify struct {
+	Action      string
+	BlockNumber uint64
+	Hash        string
+	WebhookUrl  string
+}
+
+func DoBlockParserNotifyLark(p ParamsDoBlockParserNotify) {
+	msg := `> 高度：%d
+> 步骤：%s
+> 时间：%s
+> 交易哈希：%s`
+	msg = fmt.Sprintf(msg, p.BlockNumber, p.Action, time.Now().Format("2006-01-02 15:04:05"), p.Hash)
+	err := sendLarkTextNotify(p.WebhookUrl, "区块监听", msg)
+	if err != nil {
+		log.Error("DoBlockParserNotifyLark err: ", err.Error())
 	}
 }
