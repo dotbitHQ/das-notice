@@ -11,7 +11,6 @@ var log = mylog.NewLogger("discord", mylog.LevelDebug)
 
 //=================== payment account ===================
 
-// RegisterAccountNotice 注册账户
 func RegisterAccountNotice(webHookUrl, content string) {
 	log.Info("RegisterAccountNotice:", content)
 
@@ -30,7 +29,7 @@ type BuyAccountNoticeParams struct {
 	WebhookUrl string
 }
 
-func numFormat(str string) string {
+func NumFormat(str string) string {
 	strArr := strings.Split(str, ".")
 	length := len(strArr[0])
 	if length < 4 {
@@ -47,11 +46,10 @@ func numFormat(str string) string {
 	return resStr
 }
 
-// BuyAccountNotice 购买账户
 func BuyAccountNotice(p *BuyAccountNoticeParams) {
 	log.Info("BuyAccountNotice:", p.Account, p.PriceCkb, p.PriceUsd)
 
-	title := fmt.Sprintf("** %s ** bought for %s CKB($%s).", p.Account, numFormat(p.PriceCkb), numFormat(p.PriceUsd))
+	title := fmt.Sprintf("** %s ** bought for %s CKB($%s).", p.Account, NumFormat(p.PriceCkb), NumFormat(p.PriceUsd))
 
 	err := sendNotifyDiscordContent(p.WebhookUrl, title)
 	if err != nil {
@@ -68,11 +66,10 @@ type StartAccountNoticeParams struct {
 	WebhookUrl  string
 }
 
-// StartAccountNotice 上架账户，修改上架账户
 func StartAccountNotice(p *StartAccountNoticeParams) {
 	log.Info("StartAccountNotice:", p.Account, p.PriceCkb, p.PriceUsd)
 
-	title := fmt.Sprintf("** %s **listed for %s CKB($%s). Buy Now", p.Account, numFormat(p.PriceCkb), numFormat(p.PriceUsd))
+	title := fmt.Sprintf("** %s **listed for %s CKB($%s). Buy Now", p.Account, NumFormat(p.PriceCkb), NumFormat(p.PriceUsd))
 	embed := Embed{
 		Title:       title,
 		URL:         p.EmbedUrl,

@@ -14,14 +14,14 @@ func TestRand(t *testing.T) {
 
 func TestNumFormat(t *testing.T) {
 	fmt.Println(fmt.Sprintf("%.2f", 9028.987))
-	fmt.Println(numFormat(fmt.Sprintf("%.2f", 9811.987)))
-	fmt.Println(numFormat("234.4567"))
-	fmt.Println(numFormat("2234534.4567"))
+	fmt.Println(NumFormat(fmt.Sprintf("%.2f", 9811.987)))
+	fmt.Println(NumFormat("234.4567"))
+	fmt.Println(NumFormat("2234534.4567"))
 }
 
 func TestSendNotifyDiscordContent(t *testing.T) {
 	webhook := "https://discord.com/api/webhooks/851721788760391700/JLeqEJkhH1AgGr9rkhJ0FEvcdwqPbZWpoopZcYwdxgDeM91pnhI2nruUncBw-Qo874_k"
-	title := fmt.Sprintf("** %s ** bought for %s CKB($%s).", "xxxx.bit", numFormat("100000102"), numFormat(fmt.Sprintf("%.3f", 189834.2302)))
+	title := fmt.Sprintf("** %s ** bought for %s CKB($%s).", "xxxx.bit", NumFormat("100000102"), NumFormat(fmt.Sprintf("%.3f", 189834.2302)))
 	err := sendNotifyDiscordContent(webhook, title)
 	if err != nil {
 		t.Fatal()
@@ -31,7 +31,7 @@ func TestSendNotifyDiscordContent(t *testing.T) {
 func TestSendNotifyDiscordEmbeds(t *testing.T) {
 	webhook := "https://discord.com/api/webhooks/851721788760391700/JLeqEJkhH1AgGr9rkhJ0FEvcdwqPbZWpoopZcYwdxgDeM91pnhI2nruUncBw-Qo874_k"
 	url := "https://551c3fbbfa.bestdas.com/stats"
-	title := fmt.Sprintf("** %s ** bought for %s CKB($%s).", "xxxx.bit", numFormat("100000102"), numFormat(fmt.Sprintf("%.3f", 189834.2302)))
+	title := fmt.Sprintf("** %s ** bought for %s CKB($%s).", "xxxx.bit", NumFormat("100000102"), NumFormat(fmt.Sprintf("%.3f", 189834.2302)))
 
 	embed := Embed{
 		Title:       title,
