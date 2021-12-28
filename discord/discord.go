@@ -46,7 +46,7 @@ type Image struct {
 	URL string `json:"url"`
 }
 
-func sendNotifyDiscord(webhook string, data Webhook) error {
+func SendNotifyDiscord(webhook string, data Webhook) error {
 	if webhook == "" {
 		return nil
 	}
@@ -59,20 +59,20 @@ func sendNotifyDiscord(webhook string, data Webhook) error {
 	return nil
 }
 
-func sendNotifyDiscordContent(webhook, content string) error {
+func SendNotifyDiscordContent(webhook, content string) error {
 	if webhook == "" {
 		return nil
 	}
 	var data Webhook
 	data.Content = content
-	return sendNotifyDiscord(webhook, data)
+	return SendNotifyDiscord(webhook, data)
 }
 
-func sendNotifyDiscordEmbeds(webhook string, embed ...Embed) error {
+func SendNotifyDiscordEmbeds(webhook string, embed ...Embed) error {
 	if webhook == "" {
 		return nil
 	}
 	var data Webhook
 	data.Embeds = append(data.Embeds, embed...)
-	return sendNotifyDiscord(webhook, data)
+	return SendNotifyDiscord(webhook, data)
 }

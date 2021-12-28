@@ -25,7 +25,7 @@ type MsgData struct {
 	} `json:"content"`
 }
 
-func sendLarkTextNotify(url, title, text string) error {
+func SendLarkTextNotify(url, title, text string) error {
 	if url == "" || text == "" {
 		return nil
 	}

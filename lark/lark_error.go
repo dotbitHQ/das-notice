@@ -14,7 +14,7 @@ type ParamsDoOrderNotRefundedNotify struct {
 
 func DoOrderNotRefundedNotifyLark(p ParamsDoOrderNotRefundedNotify) {
 	msg := fmt.Sprintf("未退款订单数：%d", p.Count)
-	err := sendLarkTextNotify(p.WebhookUrl, "", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "", msg)
 	if err != nil {
 		log.Error("DoOrderNotRefundedNotifyLark err: ", err.Error())
 	}
@@ -36,28 +36,28 @@ func getLarkTextNotifyStr(funcName, keyInfo, errInfo string) string {
 
 func DoHedgeDepositNotifyLark(p ParamsDoErrorHandleNotify) {
 	msg := getLarkTextNotifyStr(p.FuncName, p.KeyInfo, p.ErrInfo)
-	err := sendLarkTextNotify(p.WebhookUrl, "对冲失败", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "对冲失败", msg)
 	if err != nil {
 		log.Error("DoHedgeDepositNotifyLark err: ", err.Error())
 	}
 }
 func DoUpdateOrderNotifyLark(p ParamsDoErrorHandleNotify) {
 	msg := getLarkTextNotifyStr(p.FuncName, p.KeyInfo, p.ErrInfo)
-	err := sendLarkTextNotify(p.WebhookUrl, "更新订单CkbHash失败", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "更新订单CkbHash失败", msg)
 	if err != nil {
 		log.Error("DoUpdateOrderNotifyLark err: ", err.Error())
 	}
 }
 func DoPayCallbackNotifyLark(p ParamsDoErrorHandleNotify) {
 	msg := getLarkTextNotifyStr(p.FuncName, p.KeyInfo, p.ErrInfo)
-	err := sendLarkTextNotify(p.WebhookUrl, "支付回调发交易失败", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "支付回调发交易失败", msg)
 	if err != nil {
 		log.Error("DoPayCallbackNotifyLark err: ", err.Error())
 	}
 }
 func DoNodeMonitorNotifyLark(p ParamsDoErrorHandleNotify) {
 	msg := getLarkTextNotifyStr(p.FuncName, p.KeyInfo, p.ErrInfo)
-	err := sendLarkTextNotify(p.WebhookUrl, "节点监控", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "节点监控", msg)
 	if err != nil {
 		log.Error("DoNodeMonitorNotifyLark err: ", err.Error())
 	}
@@ -74,7 +74,7 @@ type ParamsDoOrderTxRejectedNotify struct {
 
 func DoPreRegisterNotifyLark(p ParamsDoErrorHandleNotify) {
 	msg := getLarkTextNotifyStr(p.FuncName, p.KeyInfo, p.ErrInfo)
-	err := sendLarkTextNotify(p.WebhookUrl, "发预注册交易失败", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "发预注册交易失败", msg)
 	if err != nil {
 		log.Error("DoPreRegisterNotifyLark err: ", err.Error())
 	}
@@ -89,7 +89,7 @@ func DoOrderTxRejectedNotifyLark(p ParamsDoOrderTxRejectedNotify) {
 > 步骤: %s
 > 时间：%.2f 分钟前`
 	msg = fmt.Sprintf(msg, p.Account, action, p.SinceMin)
-	err := sendLarkTextNotify(p.WebhookUrl, "Rejected 交易监听", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "Rejected 交易监听", msg)
 	if err != nil {
 		log.Error("DoOrderTxRejectedNotifyLark err: ", err.Error())
 	}
@@ -110,7 +110,7 @@ func DoBlockParserNotifyLark(p ParamsDoBlockParserNotify) {
 > 时间：%s
 > 交易哈希：%s`
 	msg = fmt.Sprintf(msg, p.BlockNumber, p.Action, time.Now().Format("2006-01-02 15:04:05"), p.Hash)
-	err := sendLarkTextNotify(p.WebhookUrl, "区块监听", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "区块监听", msg)
 	if err != nil {
 		log.Error("DoBlockParserNotifyLark err: ", err.Error())
 	}

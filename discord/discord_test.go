@@ -22,7 +22,7 @@ func TestNumFormat(t *testing.T) {
 func TestSendNotifyDiscordContent(t *testing.T) {
 	webhook := "https://discord.com/api/webhooks/851721788760391700/JLeqEJkhH1AgGr9rkhJ0FEvcdwqPbZWpoopZcYwdxgDeM91pnhI2nruUncBw-Qo874_k"
 	title := fmt.Sprintf("** %s ** bought for %s CKB($%s).", "xxxx.bit", NumFormat("100000102"), NumFormat(fmt.Sprintf("%.3f", 189834.2302)))
-	err := sendNotifyDiscordContent(webhook, title)
+	err := SendNotifyDiscordContent(webhook, title)
 	if err != nil {
 		t.Fatal()
 	}
@@ -39,7 +39,7 @@ func TestSendNotifyDiscordEmbeds(t *testing.T) {
 		Description: "what a awesome message",
 		Color:       rand.Int63n(16777215),
 	}
-	err := sendNotifyDiscordEmbeds(webhook, embed)
+	err := SendNotifyDiscordEmbeds(webhook, embed)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -14,7 +14,7 @@ var log = mylog.NewLogger("discord", mylog.LevelDebug)
 func RegisterAccountNotice(webHookUrl, content string) {
 	log.Info("RegisterAccountNotice:", content)
 
-	err := sendNotifyDiscordContent(webHookUrl, content)
+	err := SendNotifyDiscordContent(webHookUrl, content)
 	if err != nil {
 		log.Error("RegisterAccountNotice err: ", err.Error())
 	}
@@ -51,7 +51,7 @@ func BuyAccountNotice(p *BuyAccountNoticeParams) {
 
 	title := fmt.Sprintf("** %s ** bought for %s CKB($%s).", p.Account, NumFormat(p.PriceCkb), NumFormat(p.PriceUsd))
 
-	err := sendNotifyDiscordContent(p.WebhookUrl, title)
+	err := SendNotifyDiscordContent(p.WebhookUrl, title)
 	if err != nil {
 		log.Error("BuyAccountNotice err: ", err.Error())
 	}
@@ -76,7 +76,7 @@ func StartAccountNotice(p *StartAccountNoticeParams) {
 		Description: p.Description,
 		Color:       rand.Int63n(16777215),
 	}
-	err := sendNotifyDiscordEmbeds(p.WebhookUrl, embed)
+	err := SendNotifyDiscordEmbeds(p.WebhookUrl, embed)
 	if err != nil {
 		log.Error("StartAccountNotice err: ", err.Error())
 	}

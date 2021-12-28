@@ -27,7 +27,7 @@ func DoRegisterInfoNotifyLark(p ParamsDoRegisterInfoNotify) {
 - 确认提案中数量：%d
 - 时间：%s`
 	msg = fmt.Sprintf(msg, p.AccountNum, p.OwnerNum, p.ApplyNum, p.PreNum, p.ProNum, p.ConfirmProNum, time.Now().Format("2006-01-02 15:04:05"))
-	err := sendLarkTextNotify(p.WebhookUrl, "注册信息统计", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "注册信息统计", msg)
 	if err != nil {
 		log.Error("DoRegisterInfoNotifyLark err: ", err.Error())
 	}
@@ -44,7 +44,7 @@ func DoNormalCellNotifyLark(p ParamsDoNormalCellNotify) {
 - Capacity: %s
 - 时间：%s`
 	msg = fmt.Sprintf(msg, p.Count, p.Capacity, time.Now().Format("2006-01-02 15:04:05"))
-	err := sendLarkTextNotify(p.WebhookUrl, "剩余零散的NormalCell", msg)
+	err := SendLarkTextNotify(p.WebhookUrl, "剩余零散的NormalCell", msg)
 	if err != nil {
 		log.Error("DoNormalCellNotifyLark err: ", err.Error())
 	}
