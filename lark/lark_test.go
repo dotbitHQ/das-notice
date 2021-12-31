@@ -3,25 +3,33 @@ package lark
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
-func TestDoBlockParserNotifyLark(t *testing.T) {
-	DoBlockParserNotifyLark(ParamsDoBlockParserNotify{
-		Action:      "apply_register",
-		BlockNumber: 5718189,
-		Hash:        "0xe9116d651c371662b6e29e2102422e23f90656b8619df82c48b782ff4db43a37",
-		WebhookUrl:  "https://open.larksuite.com/open-apis/bot/v2/hook/a5225cf9-7865-486e-917d-2284b0395e98",
-	})
+func TestSendLarkTextNotify(t *testing.T) {
+	msg := `> 高度：%d
+> 步骤：%s
+> 时间：%s
+> 交易哈希：%s`
+	msg = fmt.Sprintf(msg, 3763163, "edit_offer", time.Now().Format("2006-01-02 15:04:05"), "0x31db70391cb1b541cccbd5146e77870c095b48bc4dc8d763f222c9b0afe19424")
+	err := SendLarkTextNotify(
+		"https://open.larksuite.com/open-apis/bot/v2/hook/a5225cf9-7865-486e-917d-2284b0395e98",
+		"区块监听",
+		msg,
+	)
+	if err != nil {
+		t.Log("SendLarkTextNotify err:", err.Error())
+	}
 }
 
-func TestSendLarkTextNotify(t *testing.T) {
-	msg := fmt.Sprintf("The count of not serial account is %d", 2)
-	err := SendLarkTextNotify(
+func TestSendLarkTextAllNotify(t *testing.T) {
+	msg := fmt.Sprintf("\nThe count of not serial account is %d", 2)
+	err := SendLarkTextAllNotify(
 		"https://open.larksuite.com/open-apis/bot/v2/hook/a5225cf9-7865-486e-917d-2284b0395e98",
 		"Account not serial",
 		msg,
 	)
 	if err != nil {
-		log.Error("SendLarkTextNotify err: ", err.Error())
+		t.Log("SendLarkTextAllNotify err:", err.Error())
 	}
 }
