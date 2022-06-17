@@ -30,3 +30,16 @@ func TestSendLarkTextAllNotify(t *testing.T) {
 		t.Log("SendLarkTextAllNotify err:", err.Error())
 	}
 }
+
+func TestSendLarkLinkTextNotify(t *testing.T) {
+	err := SendLarkLinkTextNotify(
+		"https://open.larksuite.com/open-apis/bot/v2/hook/a5225cf9-7865-486e-917d-2284b0395e98",
+		"",
+		" transferred",
+		"did.id",
+		"https://did.id",
+	)
+	if err != nil {
+		t.Log("SendLarkLinkTextNotify err:", err.Error())
+	}
+}
