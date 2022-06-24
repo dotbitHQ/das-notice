@@ -1,4 +1,4 @@
-module github.com/dotbitHQ/das-lib/das-notice
+module github.com/dotbitHQ/das-notice
 
 go 1.16
 
