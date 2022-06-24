@@ -1,4 +1,4 @@
-module github.com/DeAccountSystems/das-notice
+module github.com/dotbitHQ/das-lib/das-notice
 
 go 1.16
 
